@@ -33,7 +33,6 @@
         $.ajax({
             url: 'https://raw.githubusercontent.com/FilippovAM/metrika/master/data.json',
             success: function (data) {
-                $('#json').text(data);
                 var metrika = JSON.parse(data);
                 var chart = anychart.line();
                 var categories = [];
