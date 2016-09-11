@@ -24,8 +24,18 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$USER_HOME$/WebstormProjects/sample/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7777778">
-              <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.055555556">
+              <caret line="2" column="16" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="anychart.bundle.min.js" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/WebstormProjects/sample/anychart.bundle.min.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="2916" column="160" selection-start-line="2916" selection-start-column="160" selection-end-line="2916" selection-end-column="160" />
               <folding />
             </state>
           </provider>
@@ -58,6 +68,7 @@
         <option value="$USER_HOME$/WebstormProjects/sample/data.js" />
         <option value="$USER_HOME$/WebstormProjects/sample/data.json.js" />
         <option value="$USER_HOME$/WebstormProjects/sample/data.json" />
+        <option value="$USER_HOME$/WebstormProjects/sample/anychart.bundle.min.js" />
         <option value="$USER_HOME$/WebstormProjects/sample/index.html" />
       </list>
     </option>
@@ -255,10 +266,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$USER_HOME$/WebstormProjects/sample/anychart.bundle.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="2916" column="160" selection-start-line="2916" selection-start-column="160" selection-end-line="2916" selection-end-column="160" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$USER_HOME$/WebstormProjects/sample/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7777778">
-          <caret line="28" column="0" selection-start-line="28" selection-start-column="0" selection-end-line="28" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.055555556">
+          <caret line="2" column="16" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
           <folding />
         </state>
       </provider>
