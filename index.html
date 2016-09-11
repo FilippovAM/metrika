@@ -5,7 +5,6 @@
     <title>Yandex Metrika</title>
     <script src="https://code.jquery.com/jquery-latest.min.js"></script>
     <script src="http://cdn.anychart.com/js/7.11.1/anychart-bundle.min.js"></script>
-    <script src="data.js"></script>
     <link rel="stylesheet" href="https://cdn.anychart.com/css/latest/anychart-ui.min.css"/>
     <style>
         html, body, #container {
@@ -14,82 +13,99 @@
             margin: 0;
             padding: 0;
         }
+
+        .link {
+            font-size: 20px;
+            position: absolute;
+            top: 0;
+            left: 25px;
+            z-index: 100;
+        }
     </style>
 </head>
 <body>
+<a class="link" target="_blank" href="https://raw.githubusercontent.com/FilippovAM/metrika/master/data.json">Link for
+    Data JSON</a>
+
 <div id="container"></div>
 <script>
     anychart.onDocumentReady(function () {
-        var chart = anychart.line();
-        var metrika = getMetrika();
-        var categories = [];
-        var time_intervals = [];
-        var values = [];
-        var values_map = [];
-        var value_map_alone = [];
-        var i = 0;
-        var seriesData;
-        var series = {};
+        $.ajax({
+            url: 'https://raw.githubusercontent.com/FilippovAM/metrika/master/data.json',
+            success: function (data) {
+                $('#json').text(data);
+                var metrika = JSON.parse(data);
+                var chart = anychart.line();
+                var categories = [];
+                var time_intervals = [];
+                var values = [];
+                var values_map = [];
+                var value_map_alone = [];
+                var i = 0;
+                var seriesData;
+                var series = {};
 
-        for (i = 0; i < metrika.data.length; i++) {
-            values.push(metrika.data[i].metrics[0]);
-            categories.push(metrika.data[i].dimensions[0].name);
-        }
+                for (i = 0; i < metrika.data.length; i++) {
+                    values.push(metrika.data[i].metrics[0]);
+                    categories.push(metrika.data[i].dimensions[0].name);
+                }
 
-        for (i = 0; i < metrika.time_intervals.length; i++) {
-            time_intervals.push(metrika.time_intervals[i][0]);
-        }
+                for (i = 0; i < metrika.time_intervals.length; i++) {
+                    time_intervals.push(metrika.time_intervals[i][0]);
+                }
 
-        for (i = 0; i < values[0].length; i++) {
-            for (var j = 0; j < values.length; j++) {
-                value_map_alone.push(values[j][i]);
+                for (i = 0; i < values[0].length; i++) {
+                    for (var j = 0; j < values.length; j++) {
+                        value_map_alone.push(values[j][i]);
+                    }
+                    values_map.push(value_map_alone);
+                    value_map_alone = [];
+                }
+
+                values_map = values_map.filter(function (value, index) {
+                    return value.unshift(time_intervals[index]);
+                });
+
+                // create data set on our data
+                var dataSet = anychart.data.set(values_map);
+
+                for (i = 0; i < categories.length; i++) {
+                    createSeries(categories[i], i + 1);
+                }
+
+                function createSeries(name, index) {
+                    // create line chart
+                    seriesData = dataSet.mapAs({x: [0], value: [index]});
+                    series[index] = chart.line(seriesData);
+                    series[index].name(name);
+                }
+
+                // turn on the crosshair
+                chart.crosshair().enabled(true).yLabel().enabled(false);
+                chart.crosshair().yStroke(null);
+
+                // set tooltip mode to point
+                chart.tooltip().positionMode('point');
+
+                // set chart title text settings
+                chart.title('Report on the operating systems and browsers');
+                chart.title().padding([0, 0, 15, 0]);
+
+                // set yAxis title
+                chart.yAxis().title('Users');
+                chart.xAxis().labels().padding([5]);
+
+                // turn the legend on
+                chart.legend().enabled(true).fontSize(13).padding([0, 0, 10, 0]);
+
+                // set container id for the chart and set up paddings
+                chart.container('container');
+                chart.padding([10, 20, 5, 20]);
+
+                // initiate chart drawing
+                chart.draw();
             }
-            values_map.push(value_map_alone);
-            value_map_alone = [];
-        }
-
-        values_map = values_map.filter(function (value, index) {
-            return value.unshift(time_intervals[index]);
         });
-
-        // create data set on our data
-        var dataSet = anychart.data.set(values_map);
-
-        for (i = 0; i < categories.length; i++) {
-            createSeries(categories[i], i + 1);
-        }
-
-        function createSeries(name, index) {
-            // create line chart
-            seriesData = dataSet.mapAs({x: [0], value: [index]});
-            series[index] = chart.line(seriesData);
-            series[index].name(name);
-        }
-
-        // turn on the crosshair
-        chart.crosshair().enabled(true).yLabel().enabled(false);
-        chart.crosshair().yStroke(null);
-
-        // set tooltip mode to point
-        chart.tooltip().positionMode('point');
-
-        // set chart title text settings
-        chart.title('Report on the operating systems and browsers');
-        chart.title().padding([0, 0, 15, 0]);
-
-        // set yAxis title
-        chart.yAxis().title('Users');
-        chart.xAxis().labels().padding([5]);
-
-        // turn the legend on
-        chart.legend().enabled(true).fontSize(13).padding([0, 0, 10, 0]);
-
-        // set container id for the chart and set up paddings
-        chart.container('container');
-        chart.padding([10, 20, 5, 20]);
-
-        // initiate chart drawing
-        chart.draw();
     });
 </script>
 </body>
